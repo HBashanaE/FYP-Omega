@@ -1,19 +1,18 @@
-import torch
-class NeuralLanguageModel():
+from LanguageModel import NeuralLanguageModel
+from collections import defaultdict
 
-    def __init__(self, path) -> None:
-        with open(path) as f:
-            self.model = torch.load(f)
+class EvaluationMmodule():
 
-    def getNameAccuracy(self, name):
-        return self.model.predict()
+    def __init__(self, dictionary, neuralModelpath) -> None:
+        self.dictionary = defaultdict(dictionary, int)
+        self.neural_model = NeuralLanguageModel(neuralModelpath)
 
 
-class StatisticalLanguageModel():
-    def __init__(self) -> None:
+    ## TODO: Check dictionary and return whether name is in the dictionary
+    def isNameAccurate(self, name) -> bool:
+        return self.dictionary(name) > 0
+
+
+    ## TODO: Rank names using 
+    def rankNames(self, suggestions):
         pass
-
-    def getNameAccuracy(self, name):
-        pass
-
-        
