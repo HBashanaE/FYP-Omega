@@ -7,8 +7,8 @@ class SuggestionGenerator():
 
     def generateSuggestions(self, error):
         suggestions = []
-        padded = error[:-1]
-        padded.insert(0,'<s>')
+        padded = '<s>' + error[:-1]
+        # padded.insert(0,'<s>')
         for idx, letter in enumerate(padded):
             for correction in self.insertions[letter]:
                 suggestion = error[:idx] + [correction[0]] + error[idx:]
