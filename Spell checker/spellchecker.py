@@ -1,5 +1,6 @@
 from evaluationModule import EvaluationMmodule
 from suggestionGenerator import SuggestionGenerator
+from utils import preprocess
 import json
 
 class SpellChecker():
@@ -11,7 +12,7 @@ class SpellChecker():
         self.suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions)
 
     def correctSpelling(self, errorName):
-        isAccurate = self.evaluationModule.isNameAccurate(errorName)
+        isAccurate = self.evaluationModule.isNameAccurate(preprocess(errorName))
         if(isAccurate):
             suggestions = self.suggestionGenerator.generateSuggestions(errorName)
             # rankedSuggestions = self.evaluationModule.rankNames(suggestions)
