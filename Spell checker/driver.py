@@ -70,10 +70,14 @@ class CharRNN(nn.Module):
         return hidden
 
 
+root = r'c:\\Users\\Yasith\\Documents\\GitHub\\FYP-Omega\\'
+dictionaryPath =  root+'Data/combined all names - dictionary - train.json'
+neuralModelPath = root+'Data/neuralModel.pth'
+insertionPath = root+'Error model/Probability sets/insertion_probabilites.json'
+deletionPath = root+'Error model/Probability sets/deletion_probabilites.json'
+substitutionPath = root+'Error model/Probability sets/substitution_probabilites.json'
 
-dictionaryPath =  r'D:\Final Year Project\Codes\FYP-Omega\Data\combined all names - dictionary - train.json'
-neuralModelPath = r'D:\Final Year Project\Codes\FYP-Omega\Data\neuralModel.pth'
 
-spellChecker = SpellChecker(dictionaryPath, neuralModelPath, {}, {}, {})
+spellChecker = SpellChecker(dictionaryPath, neuralModelPath, insertionPath, deletionPath, substitutionPath)
 
 spellChecker.correctSpelling('ඉසාන්')

@@ -15,7 +15,7 @@ class SpellChecker():
             deletions = json.load(json_file)
         with open(substitutionPath, 'r', encoding='utf-8') as json_file:
             substitutions = json.load(json_file)
-        self.suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions)
+        self.suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions, 0.95)
 
     def correctSpelling(self, errorName):
         isAccurate = self.evaluationModule.isNameAccurate(preprocess(errorName))
