@@ -15,4 +15,5 @@ class EvaluationMmodule():
 
     ## TODO: Rank names using 
     def rankNames(self, suggestions):
+        ## TODO: preprocess and tokenize before passing to the neural language model
         pass
