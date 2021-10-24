@@ -3,6 +3,7 @@ from suggestionGenerator import SuggestionGenerator
 from utils import preprocess
 import json
 
+
 class SpellChecker():
 
     def __init__(self, dictionaryPath, neuralModelpath, insertionPath, deletionPath, substitutionPath) -> None:
@@ -15,15 +16,23 @@ class SpellChecker():
             deletions = json.load(json_file)
         with open(substitutionPath, 'r', encoding='utf-8') as json_file:
             substitutions = json.load(json_file)
-        self.suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions, 0.95)
+        self.suggestionGenerator = SuggestionGenerator(
+            insertions, deletions, substitutions, 0.95)
 
     def correctSpelling(self, errorName):
-        isAccurate = self.evaluationModule.isNameAccurate(preprocess(errorName))
+        isAccurate = self.evaluationModule.isNameAccurate(
+            preprocess(errorName))
         if(isAccurate):
-            suggestions = self.suggestionGenerator.generateSuggestions(errorName)
-            # rankedSuggestions = self.evaluationModule.rankNames(suggestions)
-            print(suggestions)
+            suggestions = self.suggestionGenerator.generateSuggestions(
+                errorName)
+            top10Suggestions = suggestions[:10]
+            rankedSuggestions = self.evaluationModule.rankNames(
+                top10Suggestions)
+            return [(1.0, errorName)] + rankedSuggestions
         else:
-            suggestions = self.suggestionGenerator.generateSuggestions(errorName)
-            # rankedSuggestions = self.evaluationModule.rankNames(suggestions)
-            print(suggestions)
+            suggestions = self.suggestionGenerator.generateSuggestions(
+                errorName)
+            top10Suggestions = suggestions[:10]
+            rankedSuggestions = self.evaluationModule.rankNames(
+                top10Suggestions)
+            return rankedSuggestions
