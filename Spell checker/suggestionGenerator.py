@@ -16,16 +16,17 @@ class SuggestionGenerator():
         suggestions = [(tokenizedError,self.baseProbability)]
         padded = tokenizedError[:-1]
         padded.insert(0,'<s>')
-        for idx, letter in enumerate(padded):
+        for idx, letter in enumerate(padded[1:]):
             if letter in self.insertions:
                 for correction in self.insertions[letter]:
-                    suggestion = tokenizedError[:idx] + [correction[0]] + tokenizedError[idx:]
-                    suggestions.append((suggestion,correction[1]))
+                    if correction[0]==padded[idx-1]:
+                        suggestion = tokenizedError[:idx] + tokenizedError[idx+1:]
+                        suggestions.append((suggestion,correction[1]))
         
         for idx, letter in enumerate(padded):
             if letter in self.deletions:
                 for correction in self.deletions[letter]:
-                    suggestion = tokenizedError[:idx] + tokenizedError[idx:]
+                    suggestion = tokenizedError[:idx] + [correction[0]] + tokenizedError[idx:]
                     suggestions.append((suggestion,correction[1]))
 
         
