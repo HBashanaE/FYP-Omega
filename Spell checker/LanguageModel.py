@@ -11,7 +11,7 @@ class NeuralLanguageModel():
 
     def __init__(self, path) -> None:
         device = torch.device("cpu")
-        model = torch.load(path)
+        model = torch.load(path, map_location=torch.device('cpu'))
         model.to(device)
         self.model = model
 
