@@ -13,8 +13,8 @@ class EvaluationMmodule():
 
     def rankNames(self, suggestions):
         ranking = []
-        for suggestion in suggestions[:5]:
+        for suggestion in suggestions:
             accuracy = self.neural_model.getNameAccuracy(
                 ['<s>'] + suggestion[0] + ['</s>'])
             ranking.append((accuracy * suggestion[1], ''.join(suggestion[0])))
-        return sorted(ranking)
+        return sorted(ranking, reverse=True)
