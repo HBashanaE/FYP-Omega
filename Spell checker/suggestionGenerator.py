@@ -1,5 +1,6 @@
 from unicodedata import normalize as unicodeNormalize
 import regex as re
+from utils import tokenize
 
 class SuggestionGenerator():
 
@@ -11,7 +12,7 @@ class SuggestionGenerator():
 
     #error -> (list) tokenized error word
     def generateSuggestions(self, error):
-        tokenizedError = self.tokenize(error)
+        tokenizedError = tokenize(error)
         suggestions = [(tokenizedError,self.baseProbability)]
         padded = tokenizedError[:-1]
         padded.insert(0,'<s>')
@@ -34,49 +35,4 @@ class SuggestionGenerator():
                     suggestion = tokenizedError[:idx] + [correction[0]] + tokenizedError[idx+1:]
                     suggestions.append((suggestion,correction[1]))   
 
-        return suggestions
-
-    
-
-
-
-    def tokenize(text):
-        suffixesList = [ 
-        "්", 
-        "ා", 
-        "ැ", 
-        "ෑ", 
-        "ි", 
-        "ී", 
-        "ු", 
-        "ූ", 
-        "ෙ", 
-        "ේ", 
-        "ෛ", 
-        "ො", 
-        "ෝ" ,
-        "ෞ",
-        "ෘ",
-        "ෲ"
-        ]
-        tokens = []
-        li = 1
-        while li < len(text):
-        # for li in range(1, len(text)):
-            prevChar, currentChar = text[li - 1], text[li]
-            if(currentChar == '\u200d'):
-                    if(li < len(text) - 1):
-                        if(prevChar == suffixesList[0] and (text[li + 1] == 'ර' or text[li + 1] == 'ය' or text[li + 1] == 'ද')):
-                            tokens.append(tokens.pop()+currentChar+text[li + 1])
-                            li += 1
-            elif(currentChar in suffixesList):
-                if(li != 1):
-                    tokens.append(f"{tokens.pop()}{currentChar}")
-                else:
-                    tokens.append(f"{prevChar}{currentChar}")
-            else:
-                if(li == 1):
-                    tokens.append(prevChar)
-                tokens.append(currentChar)
-            li += 1
-        return tokens            
+        return suggestions       
