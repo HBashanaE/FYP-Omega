@@ -6,10 +6,10 @@ import json
 
 class SpellChecker():
 
-    def __init__(self, dictionaryPath, neuralModelpath, insertionPath, deletionPath, substitutionPath) -> None:
+    def __init__(self, dictionaryPath, neuralModelpath, ngramModelPath, insertionPath, deletionPath, substitutionPath) -> None:
         with open(dictionaryPath, 'r', encoding='utf-8') as json_file:
             dictionary = json.load(json_file)
-        self.evaluationModule = EvaluationMmodule(dictionary, neuralModelpath)
+        self.evaluationModule = EvaluationMmodule(dictionary, neuralModelpath, ngramModelPath)
         with open(insertionPath, 'r', encoding='utf-8') as json_file:
             insertions = json.load(json_file)
         with open(deletionPath, 'r', encoding='utf-8') as json_file:
