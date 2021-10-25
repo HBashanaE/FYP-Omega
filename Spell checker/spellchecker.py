@@ -22,17 +22,17 @@ class SpellChecker():
     def correctSpelling(self, errorName):
         isAccurate = self.evaluationModule.isNameAccurate(
             preprocess(errorName))
-        if(isAccurate):
-            suggestions = self.suggestionGenerator.generateSuggestions(
-                errorName)
-            top10Suggestions = suggestions[:10]
-            rankedSuggestions = self.evaluationModule.rankNames(
-                top10Suggestions)
-            return [(1.0, errorName)] + rankedSuggestions
-        else:
-            suggestions = self.suggestionGenerator.generateSuggestions(
-                errorName)
-            top10Suggestions = suggestions[:10]
-            rankedSuggestions = self.evaluationModule.rankNames(
-                top10Suggestions)
-            return rankedSuggestions
+        # if(isAccurate):
+        #     suggestions = self.suggestionGenerator.generateSuggestions(
+        #         errorName)
+        #     top10Suggestions = suggestions
+        #     rankedSuggestions = self.evaluationModule.rankNames(
+        #         top10Suggestions)
+        #     return [(1.0, errorName)] + rankedSuggestions
+        # else:
+        suggestions = self.suggestionGenerator.generateSuggestions(
+            errorName)
+        top10Suggestions = suggestions
+        rankedSuggestions = self.evaluationModule.rankNames(
+            top10Suggestions)
+        return rankedSuggestions
