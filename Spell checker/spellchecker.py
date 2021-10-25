@@ -20,6 +20,7 @@ class SpellChecker():
             insertions, deletions, substitutions, 0.95)
 
     def correctSpelling(self, errorName):
+        errorName = preprocess(errorName)
         isAccurate = self.evaluationModule.isNameAccurate(
             preprocess(errorName))
         if(isAccurate):
