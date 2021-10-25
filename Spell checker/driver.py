@@ -3,7 +3,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from utils import one_hot_encode
+from utils import one_hot_encode, preprocess, tokenize
 import os
 
 train_on_gpu = False
@@ -60,7 +60,7 @@ class CharRNN(nn.Module):
 dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
-neuralModelPath = os.path.join(dirname, '../Data/model.pth')
+neuralModelPath = os.path.join(dirname, '../Data/model(1).pth')
 
 insertionPath = os.path.join(
     dirname, '../Error model/Probability sets/insertion_probabilities.json')
@@ -73,5 +73,5 @@ substitutionPath = os.path.join(
 spellChecker = SpellChecker(
     dictionaryPath, neuralModelPath, insertionPath, deletionPath, substitutionPath)
 
-suggestions = spellChecker.correctSpelling('මලීෂ')
+suggestions = spellChecker.correctSpelling('විතානගේ')
 print(suggestions)
