@@ -4,7 +4,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from utils import one_hot_encode
+from utils import one_hot_encode, preprocess, tokenize
 import os
 import pandas as pd
 
@@ -62,7 +62,7 @@ class CharRNN(nn.Module):
 dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
-neuralModelPath = os.path.join(dirname, '../Data/model.pth')
+neuralModelPath = os.path.join(dirname, '../Data/model(1).pth')
 
 insertionPath = os.path.join(
     dirname, '../Error model/Probability sets/insertion_probabilities.json')

@@ -19,7 +19,7 @@ def preprocess(text):
     for character in normalizedText:
         preprocessedName += character if(3456 < ord(character)
                                          < 3583 or character == '\u200d') else ''
-    return text
+    return preprocessedName
 
 
 def tokenize(text):
