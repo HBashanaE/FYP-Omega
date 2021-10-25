@@ -3,14 +3,15 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from utils import one_hot_encode
+from CharRNN import CharRNN
 
 train_on_gpu = False
-
-
 class NeuralLanguageModel():
 
     def __init__(self, path) -> None:
         device = torch.device("cpu")
+        # model = CharRNN(*args, **kwargs)
+        # model.load_state_dict(torch.load(PATH))
         model = torch.load(path, map_location=torch.device('cpu'))
         model.to(device)
         self.model = model
