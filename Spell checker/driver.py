@@ -63,6 +63,7 @@ dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
 neuralModelPath = os.path.join(dirname, '../Data/model(1).pth')
+ngramModelPath = os.path.join(dirname, '../N-gram Model/my_classifier.pickle')
 
 insertionPath = os.path.join(
     dirname, '../Error model/Probability sets/insertion_probabilities.json')
@@ -73,10 +74,11 @@ substitutionPath = os.path.join(
 
 
 spellChecker = SpellChecker(
-    dictionaryPath, neuralModelPath, insertionPath, deletionPath, substitutionPath)
+    dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)
 
 errorData = os.path.join(
     dirname, '../Error data/OCR Error Data/OCR errors testing/OCR errors testing - 1.csv')
+
 
 errors = pd.read_csv(errorData,encoding='utf8')
 truePositive = 0
