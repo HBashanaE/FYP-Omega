@@ -21,8 +21,8 @@ class SpellChecker():
 
     def correctSpelling(self, errorName):
         errorName = preprocess(errorName)
-        isAccurate = self.evaluationModule.isNameAccurate(
-            preprocess(errorName))
+        # isAccurate = self.evaluationModule.isNameAccurate(
+        #     preprocess(errorName))
         # if(isAccurate):
         #     suggestions = self.suggestionGenerator.generateSuggestions(
         #         errorName)
