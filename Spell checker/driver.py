@@ -62,7 +62,7 @@ class CharRNN(nn.Module):
 dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
-neuralModelPath = os.path.join(dirname, '../Data/model(1).pth')
+neuralModelPath = os.path.join(dirname, '../Data/nn-model-tokenized')
 ngramModelPath = os.path.join(dirname, '../N-gram Model/my_classifier.pickle')
 
 insertionPath = os.path.join(
