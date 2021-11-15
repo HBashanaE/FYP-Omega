@@ -85,8 +85,6 @@ truePositive = 0
 trueNegative=0
 falsePositive = 0
 falseNegative = 0
-correctSuggestion = 0
-incorrectSuggestion = 0
 rank = [0]*10
 for index, row in errors.iterrows():
     if index>1000:
@@ -110,7 +108,7 @@ for index, row in errors.iterrows():
             else:
                 falsePositive+=1
 
-print(f'{truePositive =}\n{trueNegative=}\n{falsePositive = }\n{falseNegative = }\n{correctSuggestion = }\n{incorrectSuggestion = }\n{rank}')            
+print(f'{truePositive =}\n{trueNegative=}\n{falsePositive = }\n{falseNegative = }\n{rank}')            
 
 # suggestions = spellChecker.correctSpelling('යසත්')
 # with open("sample.json", "w",encoding='utf8') as outfile:
