@@ -74,43 +74,7 @@ substitutionPath = os.path.join(
 
 
 spellChecker = SpellChecker(
-    dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)
-
-errorData = os.path.join(
-    dirname, '../Error data/OCR Error Data/OCR errors testing/OCR errors testing - 1.csv')
-
-
-# errors = pd.read_csv(errorData,encoding='utf8')
-# truePositive = 0
-# trueNegative=0
-# falsePositive = 0
-# falseNegative = 0
-# correctSuggestion = 0
-# incorrectSuggestion = 0
-# rank = [0]*10
-# for index, row in errors.iterrows():
-#     if index>1000:
-#         break
-#     for font in ['Malith','Abhaya']:
-#         try:
-#             malSuggestions = spellChecker.correctSpelling(row[font])
-#         except:
-#             continue
-#         for index, suggest in enumerate(malSuggestions):
-#             if suggest[1]==row['original']:
-#                 if suggest[1]==row[font]:
-#                     trueNegative+=1
-#                 else:
-#                     truePositive+=1
-#                 rank[index]+=1
-#                 break
-#         else:
-#             if row['original']==row[font]:
-#                 falseNegative+=1
-#             else:
-#                 falsePositive+=1
-
-# print(f'{truePositive =}\n{trueNegative=}\n{falsePositive = }\n{falseNegative = }\n{correctSuggestion = }\n{incorrectSuggestion = }\n{rank}')            
+    dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)         
 
 suggestions = spellChecker.correctSpelling('යසත්')
 # with open("sample.json", "w",encoding='utf8') as outfile:
