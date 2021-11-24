@@ -13,6 +13,7 @@ class NeuralLanguageModel():
         # model = CharRNN(*args, **kwargs)
         # model.load_state_dict(torch.load(PATH))
         model = torch.load(path, map_location=torch.device('cpu'))
+        model.eval()
         model.to(device)
         self.model = model
 

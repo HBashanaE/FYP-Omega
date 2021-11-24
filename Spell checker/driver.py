@@ -74,9 +74,9 @@ substitutionPath = os.path.join(
 
 
 spellChecker = SpellChecker(
-    dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)    
+    dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)         
 
 suggestions = spellChecker.correctSpelling('යසත්')
-with open("sample.json", "w",encoding='utf8') as outfile:
-    json.dump(suggestions, outfile, ensure_ascii=False)
+# with open("sample.json", "w",encoding='utf8') as outfile:
+#     json.dump(suggestions, outfile, ensure_ascii=False)
 print(suggestions)

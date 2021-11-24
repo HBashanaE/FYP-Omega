@@ -20,9 +20,9 @@ class EvaluationMmodule():
             if self.dictionary[''.join(suggestion[0])] > 0:
                 ranking.append((suggestion[1], ''.join(suggestion[0])))
             else:
-                #accuracy = self.neural_model.getNameAccuracy(['<s>'] + suggestion[0] + ['</s>'])
-                #accuracy = self.nGramProbability(['<s>'] + suggestion[0] + ['</s>'])
-                accuracy = (self.nGramProbability(['<s>'] + suggestion[0] + ['</s>']) + self.neural_model.getNameAccuracy(['<s>'] + suggestion[0] + ['</s>']))/2
+                accuracy = self.neural_model.getNameAccuracy(['<s>'] + list(''.join(suggestion[0])) + ['</s>'])
+                # accuracy = self.nGramProbability(['<s>'] + suggestion[0] + ['</s>'])
+                # accuracy = (self.nGramProbability(['<s>'] + suggestion[0] + ['</s>']) + self.neural_model.getNameAccuracy(['<s>'] + suggestion[0] + ['</s>']))/2
                 ranking.append((accuracy* suggestion[1], ''.join(suggestion[0])))
         return sorted(ranking,reverse=True)[:10]
 
