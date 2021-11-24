@@ -33,21 +33,28 @@ def get_accuracy(error, original):
 
 difference = 0
 results = []
+negative_differences = 0
 for i, line in enumerate(normalized_name_list):
     original, error_malith, error_abhaya = line.split(',')
     
     if(original != error_malith):
         try:
             error_name_accuracy, original_name_accuracy = get_accuracy(error_malith, original)
-            difference += (error_name_accuracy - original_name_accuracy)
-            results.append({"original_name": original, "error_anme": error_malith, "error_name_accuracy":error_name_accuracy, "original_name_accuracy": original_name_accuracy})
+            norm_difference = (original_name_accuracy - error_name_accuracy)/original_name_accuracy
+            difference += norm_difference
+            if norm_difference<0:
+                negative_differences+=1
+            results.append({"original_name": original, "error_name": error_malith, "error_name_accuracy":error_name_accuracy, "original_name_accuracy": original_name_accuracy, "normalized_difference": norm_difference})
         except:
             pass
     if(original != error_abhaya):
         try:
             error_name_accuracy, original_name_accuracy = get_accuracy(error_abhaya, original)
-            difference += (error_name_accuracy - original_name_accuracy)
-            results.append({"original_name": original, "error_anme": error_abhaya, "error_name_accuracy":error_name_accuracy, "original_name_accuracy": original_name_accuracy})
+            norm_difference = (original_name_accuracy - error_name_accuracy)/original_name_accuracy
+            difference += norm_difference
+            if norm_difference<0:
+                negative_differences+=1
+            results.append({"original_name": original, "error_name": error_abhaya, "error_name_accuracy":error_name_accuracy, "original_name_accuracy": original_name_accuracy, "normalized_difference": norm_difference})
         except:
             pass
 
@@ -57,4 +64,4 @@ for i, line in enumerate(normalized_name_list):
 print(difference / (i + 1))
 
 with open(join(root_dirname, "result_evaluation_language_model.json"), "w", encoding='utf-8') as outfile:
-    json.dump({"results": results, "final_socre": difference}, outfile, ensure_ascii=False)
+    json.dump({"final_score": difference/len(results), "results": results}, outfile, ensure_ascii=False)
