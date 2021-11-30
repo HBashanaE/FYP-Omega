@@ -45,6 +45,42 @@ class NeuralLanguageModel():
 
         return probs.item()/len(name)
 
+    def getNameAccuracyExp(self, name):
+        self.model.eval()
+
+        chars = [ch for ch in name]
+        h = self.model.init_hidden(1)
+        probs = 1
+        for ch_i in range(len(name) - 1):
+            prob_i, h = self.prob(self.model, name[ch_i], name[ch_i + 1], h)
+            probs *= torch.exp(prob_i).item()
+
+        return probs
+
+    def getNameAccuracyMul(self, name):
+        self.model.eval()
+
+        chars = [ch for ch in name]
+        h = self.model.init_hidden(1)
+        probs = 1
+        for ch_i in range(len(name) - 1):
+            prob_i, h = self.prob(self.model, name[ch_i], name[ch_i + 1], h)
+            probs *= prob_i.item()
+
+        return probs
+
+    def getNameAccuracyLog(self, name):
+        self.model.eval()
+
+        chars = [ch for ch in name]
+        h = self.model.init_hidden(1)
+        probs = 0
+        for ch_i in range(len(name) - 1):
+            prob_i, h = self.prob(self.model, name[ch_i], name[ch_i + 1], h)
+            probs += torch.log(prob_i)
+
+        return probs.item()/len(name)
+
 
 class StatisticalLanguageModel():
     def __init__(self) -> None:
