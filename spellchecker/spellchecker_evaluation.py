@@ -107,15 +107,15 @@ train_on_gpu = False
 dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
-neuralModelPath = os.path.join(dirname, '../Data/nn-model-tokenized.pth')
-ngramModelPath = os.path.join(dirname, '../N-gram Model/my_classifier.pickle')
+neuralModelPath = os.path.join(dirname, f'../Data/neural-model-tokenized-{1024}-{4}-{2}.pth')
+ngramModelPath = os.path.join(dirname, '../ngram_model/my_classifier.pickle')
 
 insertionPath = os.path.join(
-    dirname, '../Error model/Probability sets/insertion_probabilities.json')
+    dirname, '../error_model/Probability sets/insertion_probabilities.json')
 deletionPath = os.path.join(
-    dirname, '../Error model/Probability sets/deletion_probabilities.json')
+    dirname, '../error_model/Probability sets/deletion_probabilities.json')
 substitutionPath = os.path.join(
-    dirname, '../Error model/Probability sets/substitution_probabilities.json')
+    dirname, '../error_model/Probability sets/substitution_probabilities.json')
 
 
 spellChecker = SpellChecker(
@@ -134,7 +134,7 @@ correctSuggestion = 0
 incorrectSuggestion = 0
 rank = [0]*10
 
-print('Starting evaluation...')
+print('Starting evaluation - OCR...')
 for index, row in errors.iterrows():
     if index>1000:
         break
@@ -157,8 +157,96 @@ for index, row in errors.iterrows():
             else:
                 falsePositive+=1
 
-with open(os.path.join(dirname, "evaluation_result.json"), "w",encoding='utf8') as outfile:
+with open(os.path.join(dirname, "evaluation_result_spellchecker_ocr.json"), "w",encoding='utf8') as outfile:
     json.dump({"truePositive": truePositive, "trueNegative": trueNegative, "falsePositive": falsePositive, "falseNegative": falseNegative,
                 "correctSuggestion": correctSuggestion,  "incorrectSuggestion": incorrectSuggestion, "rank": rank}, outfile, ensure_ascii=False)
 
+print('Starting evaluation - Statistical...')
+
+with open(os.path.join(dirname, "../error_data/probabilistic_edit_distance_errors/confussion_edit_distance_errors_.csv"), "r", encoding='utf-8') as f:
+    raw_names_confussion_edit_distance = f.readlines()[1:]
+raw_names_confussion_edit_distance = ''.join(
+    raw_names_confussion_edit_distance)
+
+name_list_edit_distance = raw_names_confussion_edit_distance.split(
+    '\n')
+
+truePositive = 0
+trueNegative=0
+falsePositive = 0
+falseNegative = 0
+correctSuggestion = 0
+incorrectSuggestion = 0
+rank = [0]*10
+
+for i, line in enumerate(name_list_edit_distance[:1000]):
+    original, error = line.split(',')
+   
+    try:
+        malSuggestions = spellChecker.correctSpelling(error)
+    except:
+        print(error)
+        continue
+    for index, suggest in enumerate(malSuggestions):
+        if suggest[1]==original:
+            if suggest[1]==error:
+                trueNegative+=1
+            else:
+                truePositive+=1
+            rank[index]+=1
+            break
+    else:
+        if original==error:
+            falseNegative+=1
+        else:
+            falsePositive+=1
+
+with open(os.path.join(dirname, "evaluation_result_spellchecker_statistical.json"), "w",encoding='utf8') as outfile:
+    json.dump({"truePositive": truePositive, "trueNegative": trueNegative, "falsePositive": falsePositive, "falseNegative": falseNegative,
+                "correctSuggestion": correctSuggestion,  "incorrectSuggestion": incorrectSuggestion, "rank": rank}, outfile, ensure_ascii=False)
+
+
+print('Starting evaluation - Random...')
+
+with open(os.path.join(dirname, "../error_data/random_error_data/Random errors.csv"), "r", encoding='utf-8') as f:
+    raw_names_random = f.readlines()[1:]
+raw_names_random = ''.join(
+    raw_names_random)
+
+name_list_random = raw_names_random.split(
+    '\n')
+
+truePositive = 0
+trueNegative=0
+falsePositive = 0
+falseNegative = 0
+correctSuggestion = 0
+incorrectSuggestion = 0
+rank = [0]*10
+
+for i, line in enumerate(name_list_random[:1000]):
+    original, error = line.split(',')
+   
+    try:
+        malSuggestions = spellChecker.correctSpelling(error)
+    except:
+        print(error)
+        continue
+    for index, suggest in enumerate(malSuggestions):
+        if suggest[1]==original:
+            if suggest[1]==error:
+                trueNegative+=1
+            else:
+                truePositive+=1
+            rank[index]+=1
+            break
+    else:
+        if original==error:
+            falseNegative+=1
+        else:
+            falsePositive+=1
+
+with open(os.path.join(dirname, "evaluation_result_spellchecker_random.json"), "w",encoding='utf8') as outfile:
+    json.dump({"truePositive": truePositive, "trueNegative": trueNegative, "falsePositive": falsePositive, "falseNegative": falseNegative,
+                "correctSuggestion": correctSuggestion,  "incorrectSuggestion": incorrectSuggestion, "rank": rank}, outfile, ensure_ascii=False)
 print('Evaluation completed')
