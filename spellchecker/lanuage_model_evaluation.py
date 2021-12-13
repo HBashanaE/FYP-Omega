@@ -33,13 +33,13 @@ normalized_name_list_ocr = normalized_raw_names_ocr.split('\n')
 def get_accuracy(error, original):
     error = ['<s>'] + tokenize(preprocess(error)) + ['</s>']
     original = ['<s>'] + tokenize(preprocess(original)) + ['</s>']
-    error_name_accuracy_avg, original_name_accuracy_avg = neural_model.getNameAccuracy(
+    original_name_accuracy_avg, error_name_accuracy_avg = neural_model.getNameAccuracy(
         original), neural_model.getNameAccuracy(error)
-    error_name_accuracy_mul, original_name_accuracy_mul = neural_model.getNameAccuracyMul(
+    original_name_accuracy_mul, error_name_accuracy_mul = neural_model.getNameAccuracyMul(
         original), neural_model.getNameAccuracyMul(error)
-    error_name_accuracy_log, original_name_accuracy_log = neural_model.getNameAccuracyLog(
+    original_name_accuracy_log, error_name_accuracy_log = neural_model.getNameAccuracyLog(
         original), neural_model.getNameAccuracyLog(error)
-    error_name_accuracy_exp, original_name_accuracy_exp = neural_model.getNameAccuracyExp(
+    original_name_accuracy_exp, error_name_accuracy_exp = neural_model.getNameAccuracyExp(
         original), neural_model.getNameAccuracyExp(error)
     return error_name_accuracy_avg, original_name_accuracy_avg, error_name_accuracy_mul, original_name_accuracy_mul, error_name_accuracy_log, original_name_accuracy_log, error_name_accuracy_exp, original_name_accuracy_exp
 
@@ -58,7 +58,7 @@ negative_differences_exp = 0
 results = []
 error_conunt = 0
 preprocess_test_names = []
-for i, line in enumerate(normalized_name_list_ocr[:100]):
+for i, line in enumerate(normalized_name_list_ocr[:1000]):
     original, error_malith, error_abhaya = line.split(',')
 
     if(original != error_malith):
@@ -191,7 +191,7 @@ negative_differences_mul = 0
 negative_differences_log = 0
 negative_differences_exp = 0
 results = []
-for i, line in enumerate(normalized_name_list_edit_distance[:100]):
+for i, line in enumerate(normalized_name_list_edit_distance[:1000]):
     original, error = line.split(',')
     try:
         error_name_accuracy_avg, original_name_accuracy_avg, error_name_accuracy_mul, original_name_accuracy_mul, error_name_accuracy_log, original_name_accuracy_log, error_name_accuracy_exp, original_name_accuracy_exp = get_accuracy(
@@ -278,7 +278,7 @@ negative_differences_mul = 0
 negative_differences_log = 0
 negative_differences_exp = 0
 results = []
-for i, line in enumerate(normalized_name_list_random[:100]):
+for i, line in enumerate(normalized_name_list_random[:1000]):
     if(len(line.split(',')) != 2):
         continue
     original, error = line.split(',')
