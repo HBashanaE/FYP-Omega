@@ -45,11 +45,11 @@ class SuggestionGenerator():
 dirname = os.path.dirname(__file__)
 
 insertionPath = os.path.join(
-    dirname, '../Error model/Probability sets/insertion_probabilities.json')
+    dirname, '../error_model/Probability sets/insertion_probabilities.json')
 deletionPath = os.path.join(
-    dirname, '../Error model/Probability sets/deletion_probabilities.json')
+    dirname, '../error_model/Probability sets/deletion_probabilities.json')
 substitutionPath = os.path.join(
-    dirname, '../Error model/Probability sets/substitution_probabilities.json')
+    dirname, '../error_model/Probability sets/substitution_probabilities.json')
 
 
 with open(insertionPath, 'r', encoding='utf-8') as json_file:

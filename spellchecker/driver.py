@@ -63,14 +63,14 @@ dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
     dirname, '../Data/combined all names - dictionary - train.json')
 neuralModelPath = os.path.join(dirname, '../Data/nn-model-tokenized.pth')
-ngramModelPath = os.path.join(dirname, '../N-gram Model/my_classifier.pickle')
+ngramModelPath = os.path.join(dirname, '../ngram_model/my_classifier.pickle')
 
 insertionPath = os.path.join(
-    dirname, '../Error model/Probability sets/insertion_probabilities.json')
+    dirname, '../error_model/Probability sets/insertion_probabilities.json')
 deletionPath = os.path.join(
-    dirname, '../Error model/Probability sets/deletion_probabilities.json')
+    dirname, '../error_model/Probability sets/deletion_probabilities.json')
 substitutionPath = os.path.join(
-    dirname, '../Error model/Probability sets/substitution_probabilities.json')
+    dirname, '../error_model/Probability sets/substitution_probabilities.json')
 
 
 spellChecker = SpellChecker(
