@@ -1,6 +1,5 @@
 import os
 from unicodedata import normalize as unicodeNormalize
-import regex as re
 from utils import tokenize
 import json
 
