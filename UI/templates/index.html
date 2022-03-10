@@ -23,13 +23,20 @@
     </nav>
     <div class="container">
         <div class="col-lg-6">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Enter name">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Spell Correct</button>
-                </span>
-            </div>
+            
         </div>
+
+        <form action="{{ url_for('UI_BP.spellcorrect') }}" method="post">
+            <input class="form-control" placeholder="Enter name" type="text" name="text">
+            <input class="btn btn-default" type="submit">
+        </form>
+
+        <div>
+            {% for o in option_list %}
+            <p>{{ o[1] }}</p>
+            {% endfor %}
+        </div>
+
 
     </div>
     <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>

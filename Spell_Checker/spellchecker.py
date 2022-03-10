@@ -1,7 +1,8 @@
-from evaluationModule import EvaluationMmodule
-from suggestionGenerator import SuggestionGenerator
-from utils import preprocess
 import json
+
+from Spell_Checker.evaluationModule import EvaluationMmodule
+from Spell_Checker.suggestionGenerator import SuggestionGenerator
+from Spell_Checker.utils import preprocess
 
 
 class SpellChecker():
