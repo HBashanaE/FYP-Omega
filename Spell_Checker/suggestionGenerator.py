@@ -3,9 +3,10 @@ from operator import itemgetter
 import os
 from unicodedata import normalize as unicodeNormalize
 import regex as re
-from utils import tokenize
 import json
 import Levenshtein
+
+from Spell_Checker.utils import tokenize
 
 class SuggestionGenerator():
 

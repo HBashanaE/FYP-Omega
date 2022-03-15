@@ -61,9 +61,9 @@ class CharRNN(nn.Module):
 
 dirname = os.path.dirname(__file__)
 dictionaryPath = os.path.join(
-    dirname, '../Data/combined all names - dictionary - train.json')
-neuralModelPath = os.path.join(dirname, '../Data/nn-model-tokenized.pth')
-ngramModelPath = os.path.join(dirname, '../ngram_model/my_classifier.pickle')
+    dirname, '../Data/Names/combined all names - dictionary - train.json')
+neuralModelPath = os.path.join(dirname, '../Language_Model/Neural_Language_Model/Saved_Models/nn-model-tokenized.pth')
+ngramModelPath = os.path.join(dirname, '../Language_Model/Ngram_Model/my_classifier.pickle')
 
 insertionPath = os.path.join(
     dirname, '../error_model/Probability sets/insertion_probabilities.json')
@@ -76,7 +76,7 @@ substitutionPath = os.path.join(
 spellChecker = SpellChecker(
     dictionaryPath, neuralModelPath, ngramModelPath, insertionPath, deletionPath, substitutionPath)         
 
-suggestions = spellChecker.correctSpelling('යසත්')
+suggestions = spellChecker.correctSpelling('යසත')
 # with open("sample.json", "w",encoding='utf8') as outfile:
 #     json.dump(suggestions, outfile, ensure_ascii=False)
 print(suggestions)

@@ -2,9 +2,10 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from utils import one_hot_encode
-from CharRNN import CharRNN
 import pickle
+
+from Spell_Checker.utils import one_hot_encode
+from Spell_Checker.CharRNN import CharRNN
 
 train_on_gpu = False
 class NeuralLanguageModel():

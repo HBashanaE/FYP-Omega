@@ -1,8 +1,9 @@
-from LanguageModel import NeuralLanguageModel
 from collections import defaultdict
 import pickle
 
-class EvaluationModule():
+from Spell_Checker.LanguageModel import NeuralLanguageModel
+
+class EvaluationMmodule():
 
     def __init__(self, dictionary, neuralModelpath, ngramModelPath) -> None:
         self.dictionary = defaultdict(int, dictionary)
