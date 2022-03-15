@@ -1,4 +1,4 @@
-from evaluationModule import EvaluationMmodule
+from evaluationModule import EvaluationModule
 from suggestionGenerator import SuggestionGenerator
 from utils import preprocess
 import json
@@ -9,7 +9,7 @@ class SpellChecker():
     def __init__(self, dictionaryPath, neuralModelpath, ngramModelPath, insertionPath, deletionPath, substitutionPath) -> None:
         with open(dictionaryPath, 'r', encoding='utf-8') as json_file:
             dictionary = json.load(json_file)
-        self.evaluationModule = EvaluationMmodule(dictionary, neuralModelpath, ngramModelPath)
+        self.evaluationModule = EvaluationModule(dictionary, neuralModelpath, ngramModelPath)
         with open(insertionPath, 'r', encoding='utf-8') as json_file:
             insertions = json.load(json_file)
         with open(deletionPath, 'r', encoding='utf-8') as json_file:
@@ -17,7 +17,7 @@ class SpellChecker():
         with open(substitutionPath, 'r', encoding='utf-8') as json_file:
             substitutions = json.load(json_file)
         self.suggestionGenerator = SuggestionGenerator(
-            insertions, deletions, substitutions, 0.95)
+            dictionary, insertions, deletions, substitutions, 0.95)
 
     def correctSpelling(self, errorName):
         errorName = preprocess(errorName)

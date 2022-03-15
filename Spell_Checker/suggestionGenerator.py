@@ -1,16 +1,20 @@
+from collections import defaultdict
+from operator import itemgetter
 import os
 from unicodedata import normalize as unicodeNormalize
 import regex as re
 from utils import tokenize
 import json
+import Levenshtein
 
 class SuggestionGenerator():
 
-    def __init__(self, insertions, deletions, substitutions, baseProbability) -> None:
+    def __init__(self, dictionary, insertions, deletions, substitutions, baseProbability) -> None:
         self.insertions = insertions
         self.deletions = deletions
         self.substitutions = substitutions
         self.baseProbability = baseProbability
+        self.dictionary = defaultdict(int, dictionary)
 
     # error -> (list) tokenized error word
     def generateSuggestions(self, error):
@@ -39,6 +43,12 @@ class SuggestionGenerator():
                     suggestion = tokenizedError[:idx] + \
                         [correction[0]] + tokenizedError[idx+1:]
                     suggestions.append((suggestion, correction[1]))
+        
+        max_score = max(suggestions,key=itemgetter(1))[1]
+
+        # for x,y in self.dictionary.items():
+        #     if Levenshtein.distance(x, error) < 3:
+        #         suggestions.append((tokenize(x), max_score*y))
 
         return sorted(suggestions, key=lambda tup: tup[1], reverse=True)
 
@@ -59,6 +69,6 @@ with open(deletionPath, 'r', encoding='utf-8') as json_file:
 with open(substitutionPath, 'r', encoding='utf-8') as json_file:
     substitutions = json.load(json_file)
 
-suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions, 0.95)
-with open("sample.json", "w",encoding='utf8') as outfile:
-    json.dump(sorted(suggestionGenerator.generateSuggestions('ඉසන්'), key=lambda tup: tup[1], reverse=True), outfile, ensure_ascii=False)
+# suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions, 0.95)
+# with open("sample.json", "w",encoding='utf8') as outfile:
+#     json.dump(sorted(suggestionGenerator.generateSuggestions('ඉසන්'), key=lambda tup: tup[1], reverse=True), outfile, ensure_ascii=False)
