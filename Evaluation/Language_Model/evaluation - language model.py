@@ -6,20 +6,19 @@ import json
 
 from utils import tokenize
 
-from CharRNN import CharRNN
-from LanguageModel import NeuralLanguageModel
+#from CharRNN import CharRNN
+#from LanguageModel import NeuralLanguageModel
 
 root_dirname = dirname(__file__)
 #neural_model_path = join(root_dirname, '../Data/nn-model-tokenized.pth')
-ngramModelPath = join(root_dirname, '../N-gram Model/my_classifier.pickle')
+ngramModelPath = 'C:\\Users\Yasith\\Documents\\GitHub\\FYP-Omega\\Language_Model\\Ngram_Model\\combined - kn3.pickle'
 
 #neural_model = NeuralLanguageModel(neural_model_path)
 
 with open(ngramModelPath, 'rb') as f:
     ngramModel = pickle.load(f)
 
-path = join(
-    root_dirname, '../Error data/OCR Error Data/OCR errors testing')
+path = 'C:\\Users\\Yasith\\Documents\\GitHub\\FYP-Omega\\Data\\Error_Data\\ocr_error_data\\OCR errors testing'
 files = [f for f in listdir(path) if isfile(join(path, f))]
 
 raw_names_ocr = []
@@ -35,15 +34,15 @@ def get_accuracy(error, original):
     error = tokenize(error)
     original = tokenize(original)
     #return neural_model.getNameAccuracy(error), neural_model.getNameAccuracy(original)
-    return nGramProbability(error), nGramProbability(original)
+    return nGramProbability(['<s>','<s>'] + error + ['</s>','</s>']), nGramProbability(['<s>','<s>'] + original + ['</s>','</s>'])
 
 def nGramProbability(suggestion):
     probability = 0
-    for i in range(len(suggestion)-1):
-        probability += (ngramModel.score(suggestion[i+1], [suggestion[i]]))
-    return probability/(len(suggestion)-1)
+    for i in range(len(suggestion)-2):
+        probability += (ngramModel.logscore(suggestion[i+2], [suggestion[i],suggestion[i+1]]))
+    return probability/(len(suggestion)-2)
 
-type = 'ngram'
+type = 'ngram not combined'
 print('Starting OCR...')
 
 difference = 0
@@ -55,7 +54,7 @@ for i, line in enumerate(normalized_name_list_ocr):
     if(original != error_malith):
         try:
             error_name_accuracy, original_name_accuracy = get_accuracy(error_malith, original)
-            norm_difference = (original_name_accuracy - error_name_accuracy)/original_name_accuracy
+            norm_difference = (original_name_accuracy - error_name_accuracy)/abs(original_name_accuracy)
             difference += norm_difference
             if norm_difference<0:
                 negative_differences+=1
@@ -78,7 +77,7 @@ with open(join(root_dirname, f"results/evaluation_{type}_language_model_ocr.json
 
 print('Starting confussion set...')
 
-with open(join(root_dirname, "../Error data/Edit distance errors - confussion/confussion_edit_distance_errors_.csv"), "r", encoding='utf-8') as f:
+with open("C:\\Users\\Yasith\\Documents\\GitHub\\FYP-Omega\\Data\\Error_Data\\probabilistic_edit_distance_errors/confussion_edit_distance_errors_.csv", "r", encoding='utf-8') as f:
     raw_names_confussion_edit_distance = f.readlines()[1:]
 raw_names_confussion_edit_distance = ''.join(raw_names_confussion_edit_distance)
 
@@ -92,7 +91,7 @@ for i, line in enumerate(normalized_name_list_edit_distance):
     original, error = line.split(',')
     try:
         error_name_accuracy, original_name_accuracy = get_accuracy(error, original)
-        norm_difference = (original_name_accuracy - error_name_accuracy)/original_name_accuracy
+        norm_difference = (original_name_accuracy - error_name_accuracy)/abs(original_name_accuracy)
         difference += norm_difference
         if norm_difference<0:
             negative_differences+=1
@@ -107,7 +106,7 @@ with open(join(root_dirname, f"results/evaluation_{type}_language_model_edit_dis
 
 print('starting random')
 
-with open(join(root_dirname, "../Error data/Random Error Data/Random errors.csv"), "r", encoding='utf-8') as f:
+with open("C:\\Users\\Yasith\\Documents\\GitHub\\FYP-Omega\\Data\\Error_Data\\random_error_data/Random errors.csv", "r", encoding='utf-8') as f:
     raw_names_random = f.readlines()[1:]
 raw_names_random = ''.join(raw_names_random)
 
@@ -121,7 +120,7 @@ for i, line in enumerate(normalized_name_list_random):
     original, error = line.split(',')
     try:
         error_name_accuracy, original_name_accuracy = get_accuracy(error, original)
-        norm_difference = (original_name_accuracy - error_name_accuracy)/original_name_accuracy
+        norm_difference = (original_name_accuracy - error_name_accuracy)/abs(original_name_accuracy)
         difference += norm_difference
         if norm_difference<0:
             negative_differences+=1
