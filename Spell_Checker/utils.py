@@ -80,7 +80,7 @@ def preprocess(name):
     return normalize("NFC", preprocessed_name)
 
 
-def tokenize(text):
+def tokenize_full(text):
     suffixesList = ["්", "ා", "ැ", "ෑ", "ි", "ී", "ු",
                     "ූ", "ෙ", "ේ", "ෛ", "ො", "ෝ", "ෞ", "ෘ", "ෲ"]
     tokens = []
@@ -103,3 +103,6 @@ def tokenize(text):
             tokens.append(currentChar)
         li += 1
     return tokens
+
+def tokenize_base(text):
+    return list(text)

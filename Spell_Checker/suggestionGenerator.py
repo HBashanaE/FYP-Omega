@@ -3,7 +3,7 @@ from unicodedata import normalize as unicodeNormalize
 import regex as re
 import json
 
-from Spell_Checker.utils import tokenize
+from Spell_Checker.utils import tokenize_full
 
 class SuggestionGenerator():
 
@@ -15,7 +15,7 @@ class SuggestionGenerator():
 
     # error -> (list) tokenized error word
     def generateSuggestions(self, error):
-        tokenizedError = tokenize(error)
+        tokenizedError = tokenize_full(error)
         suggestions = [(tokenizedError, self.baseProbability)]
         padded = tokenizedError[:-1]
         padded.insert(0, '<s>')

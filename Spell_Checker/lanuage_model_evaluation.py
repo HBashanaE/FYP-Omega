@@ -3,7 +3,7 @@ from os import listdir
 from unicodedata import normalize
 import json
 
-from utils import tokenize, preprocess
+from utils import tokenize_full, preprocess
 
 from CharRNN import CharRNN
 from LanguageModel import NeuralLanguageModel
@@ -34,8 +34,8 @@ normalized_name_list_ocr = normalized_raw_names_ocr.split('\n')
 
 
 def get_accuracy(error, original):
-    error = ['<s>','<s>'] + tokenize(preprocess(error)) + ['</s>','</s>']
-    original = ['<s>','<s>'] + tokenize(preprocess(original)) + ['</s>','</s>']
+    error = ['<s>','<s>'] + tokenize_full(preprocess(error)) + ['</s>','</s>']
+    original = ['<s>','<s>'] + tokenize_full(preprocess(original)) + ['</s>','</s>']
     original_name_accuracy_avg, error_name_accuracy_avg = ngram_model.getNameAccuracy(
         original), ngram_model.getNameAccuracy(error)
     original_name_accuracy_mul, error_name_accuracy_mul = ngram_model.getNameAccuracyMul(
