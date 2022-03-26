@@ -99,7 +99,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
-from utils import one_hot_encode, preprocess, tokenize
+from utils import one_hot_encode, preprocess, tokenize_full
 import os
 import pandas as pd
 

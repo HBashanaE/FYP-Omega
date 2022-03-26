@@ -19,7 +19,7 @@ class SuggestionGenerator():
 
     # error -> (list) tokenized error word
     def generateSuggestions(self, error):
-        tokenizedError = tokenize(error)
+        tokenizedError = tokenize_full(error)
         suggestions = [(tokenizedError, self.baseProbability)]
         padded = tokenizedError[:-1]
         padded.insert(0, '<s>')
