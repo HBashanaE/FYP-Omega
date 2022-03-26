@@ -1,11 +1,12 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import pickle
 
-from Spell_Checker.utils import one_hot_encode
-from Spell_Checker.CharRNN import CharRNN
+from utils import one_hot_encode
+from CharRNN import CharRNN
 
 train_on_gpu = False
 class NeuralLanguageModel():
@@ -90,25 +91,56 @@ class StatisticalLanguageModel():
         with open(path, 'rb') as f:
             self.model = pickle.load(f)
 
-    def getNameAccuracy(self, name):
+    def getNameAccuracy(self, name, n):
 
         chars = [ch for ch in name]
         probs = 0
-        for ch_i in range(len(name) - 2):
-            probs += self.model.score(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
+        if n==2:
+            for ch_i in range(len(name) - 1):
+                probs += self.model.score(chars[ch_i+1], [chars[ch_i]])
+            return probs/(len(name) - 1)
+        if n==3:
+            for ch_i in range(len(name) - 2):
+                probs += self.model.score(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
+            return probs/(len(name) - 2)        
+        return 0   
 
-        return probs/(len(name)-2)
+    def getNameAccuracyExp(self, name, n):
+        chars = [ch for ch in name]
+        probs = 1
+        if n==2:
+            for ch_i in range(len(name) - 1):
+                probs *= math.exp(self.model.score(chars[ch_i+1], [chars[ch_i]]))
+            return probs
+        if n==3:
+            for ch_i in range(len(name) - 2):
+                probs *= math.exp(self.model.score(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]]))
+            return probs
+        return 0  
 
-    def getNameAccuracyExp(self, name):
-        return 1
 
-    def getNameAccuracyMul(self, name):
-        return 1
+    def getNameAccuracyMul(self, name, n):
+        chars = [ch for ch in name]
+        probs = 1
+        if n==2:
+            for ch_i in range(len(name) - 1):
+                probs *= self.model.score(chars[ch_i+1], [chars[ch_i]])
+            return probs
+        if n==3:
+            for ch_i in range(len(name) - 2):
+                probs *= self.model.score(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
+            return probs
+        return 0    
 
-    def getNameAccuracyLog(self, name):
+    def getNameAccuracyLog(self, name, n):
         chars = [ch for ch in name]
         probs = 0
-        for ch_i in range(len(name) - 2):
-            probs += self.model.logscore(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
-
-        return probs/(len(name)-2)
+        if n==2:
+            for ch_i in range(len(name) - 1):
+                probs += self.model.logscore(chars[ch_i+1], [chars[ch_i]])
+            return probs/(len(name) - 1)
+        if n==3:
+            for ch_i in range(len(name) - 2):
+                probs += self.model.logscore(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
+            return probs/(len(name) - 2)
+        return 0   

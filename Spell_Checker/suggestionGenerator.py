@@ -6,7 +6,7 @@ import regex as re
 import json
 import Levenshtein
 
-from Spell_Checker.utils import tokenize
+from utils import tokenize
 
 class SuggestionGenerator():
 
