@@ -106,3 +106,6 @@ def tokenize_full(text):
 
 def tokenize_base(text):
     return list(text)
+
+def preprocess_n_full_tokenize(text):
+    return tokenize_full(preprocess(text))

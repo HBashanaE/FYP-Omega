@@ -1,9 +1,6 @@
 from collections import defaultdict
 from operator import itemgetter
-import os
-from unicodedata import normalize as unicodeNormalize
-import regex as re
-import json
+
 import Levenshtein
 
 from Spell_Checker.utils import tokenize_full
@@ -44,32 +41,11 @@ class SuggestionGenerator():
                     suggestion = tokenizedError[:idx] + \
                         [correction[0]] + tokenizedError[idx+1:]
                     suggestions.append((suggestion, correction[1]))
-        
-        max_score = max(suggestions,key=itemgetter(1))[1]
 
-        # for x,y in self.dictionary.items():
-        #     if Levenshtein.distance(x, error) < 3:
-        #         suggestions.append((tokenize(x), max_score*y))
+        max_score = max(suggestions, key=itemgetter(1))[1]
+
+        for x, y in self.dictionary.items():
+            if Levenshtein.distance(x, error) < 3:
+                suggestions.append((tokenize_full(x), max_score*y))
 
         return sorted(suggestions, key=lambda tup: tup[1], reverse=True)
-
-dirname = os.path.dirname(__file__)
-
-insertionPath = os.path.join(
-    dirname, '../error_model/Probability sets/insertion_probabilities.json')
-deletionPath = os.path.join(
-    dirname, '../error_model/Probability sets/deletion_probabilities.json')
-substitutionPath = os.path.join(
-    dirname, '../error_model/Probability sets/substitution_probabilities.json')
-
-
-with open(insertionPath, 'r', encoding='utf-8') as json_file:
-    insertions = json.load(json_file)
-with open(deletionPath, 'r', encoding='utf-8') as json_file:
-    deletions = json.load(json_file)
-with open(substitutionPath, 'r', encoding='utf-8') as json_file:
-    substitutions = json.load(json_file)
-
-# suggestionGenerator = SuggestionGenerator(insertions, deletions, substitutions, 0.95)
-# with open("sample.json", "w",encoding='utf8') as outfile:
-#     json.dump(sorted(suggestionGenerator.generateSuggestions('ඉසන්'), key=lambda tup: tup[1], reverse=True), outfile, ensure_ascii=False)

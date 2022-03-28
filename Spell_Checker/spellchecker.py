@@ -1,6 +1,3 @@
-from evaluationModule import EvaluationModule
-from suggestionGenerator import SuggestionGenerator
-from utils import preprocess
 import json
 
 from Spell_Checker.evaluationModule import EvaluationMmodule
@@ -10,10 +7,21 @@ from Spell_Checker.utils import preprocess
 
 class SpellChecker():
 
-    def __init__(self, dictionaryPath, neuralModelpath, ngramModelPath, insertionPath, deletionPath, substitutionPath) -> None:
+    def __init__(self, dictionaryPath, neural_model_path, statistical_model_path, insertionPath, deletionPath, substitutionPath) -> None:
+        statistical_model_config = {
+            "path": statistical_model_path,
+            "type": 'Stat'
+        }
+
+        neural_model_config = {
+            "path": neural_model_path,
+            "type": 'Neural'
+        }
+        model_config = statistical_model_config  # or neural_model_config
+
         with open(dictionaryPath, 'r', encoding='utf-8') as json_file:
             dictionary = json.load(json_file)
-        self.evaluationModule = EvaluationModule(dictionary, neuralModelpath, ngramModelPath)
+        self.evaluationModule = EvaluationMmodule(dictionary, model_config)
         with open(insertionPath, 'r', encoding='utf-8') as json_file:
             insertions = json.load(json_file)
         with open(deletionPath, 'r', encoding='utf-8') as json_file:
@@ -25,16 +33,6 @@ class SpellChecker():
 
     def correctSpelling(self, errorName):
         errorName = preprocess(errorName)
-        # isAccurate = self.evaluationModule.isNameAccurate(
-        #     preprocess(errorName))
-        # if(isAccurate):
-        #     suggestions = self.suggestionGenerator.generateSuggestions(
-        #         errorName)
-        #     top10Suggestions = suggestions
-        #     rankedSuggestions = self.evaluationModule.rankNames(
-        #         top10Suggestions)
-        #     return [(1.0, errorName)] + rankedSuggestions
-        # else:
         suggestions = self.suggestionGenerator.generateSuggestions(
             errorName)
         top10Suggestions = suggestions

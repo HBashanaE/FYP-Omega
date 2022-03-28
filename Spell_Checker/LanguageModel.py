@@ -1,5 +1,4 @@
 import torch
-import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 import pickle
@@ -83,7 +82,6 @@ class NeuralLanguageModel():
 
         return probs.item()/len(name)
 
-
 class StatisticalLanguageModel():
 
     def __init__(self, path) -> None:
@@ -95,7 +93,8 @@ class StatisticalLanguageModel():
         chars = [ch for ch in name]
         probs = 0
         for ch_i in range(len(name) - 2):
-            probs += self.model.score(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
+            probs += self.model.score(chars[ch_i+2],
+                                      [chars[ch_i], chars[ch_i+1]])
 
         return probs/(len(name)-2)
 
@@ -106,9 +105,11 @@ class StatisticalLanguageModel():
         return 1
 
     def getNameAccuracyLog(self, name):
-        chars = [ch for ch in name]
-        probs = 0
-        for ch_i in range(len(name) - 2):
-            probs += self.model.logscore(chars[ch_i+2], [chars[ch_i],chars[ch_i+1]])
 
-        return probs/(len(name)-2)
+        chars = ['<s>', '<s>'] + [ch for ch in name] + ['</s>', '</s>']
+        probs = 0
+        for ch_i in range(len(chars) - 2):
+            probs += self.model.logscore(chars[ch_i+2],
+                                         [chars[ch_i], chars[ch_i+1]])
+
+        return probs/(len(chars)-2)
