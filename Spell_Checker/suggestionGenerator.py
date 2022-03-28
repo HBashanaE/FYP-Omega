@@ -3,7 +3,7 @@ from operator import itemgetter
 
 import Levenshtein
 
-from Spell_Checker.utils import tokenize_full
+from utils import tokenize
 
 class SuggestionGenerator():
 

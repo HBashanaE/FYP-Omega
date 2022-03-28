@@ -2,7 +2,7 @@ from collections import defaultdict
 
 from Spell_Checker.LanguageModel import NeuralLanguageModel, StatisticalLanguageModel
 
-class EvaluationMmodule():
+class EvaluationModule():
 
     def __init__(self, dictionary, model_config) -> None:
         self.dictionary = defaultdict(int, dictionary)
