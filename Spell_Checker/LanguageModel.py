@@ -1,11 +1,11 @@
-import math
 import torch
 import torch.nn.functional as F
+
 import numpy as np
 import pickle
 
-from utils import one_hot_encode
-from CharRNN import CharRNN
+from Spell_Checker.utils import one_hot_encode
+from Spell_Checker.CharRNN import CharRNN
 
 train_on_gpu = False
 class NeuralLanguageModel():
@@ -89,7 +89,7 @@ class StatisticalLanguageModel():
         with open(path, 'rb') as f:
             self.model = pickle.load(f)
 
-    def getNameAccuracy(self, name, n):
+    def getNameAccuracy(self, name):
 
         chars = [ch for ch in name]
         probs = 0
