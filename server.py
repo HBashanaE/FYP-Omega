@@ -1,7 +1,7 @@
 from flask import Flask
-from UI.app import UI_BP
 import os
 
+from UI.app import UI_BP
 from Spell_Checker.CharRNN import CharRNN
 
 dirname = os.path.dirname(__file__)

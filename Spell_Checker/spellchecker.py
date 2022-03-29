@@ -1,8 +1,8 @@
 import json
 
-from evaluationModule import EvaluationModule
-from suggestionGenerator import SuggestionGenerator
-from utils import preprocess
+from Spell_Checker.evaluationModule import EvaluationModule
+from Spell_Checker.suggestionGenerator import SuggestionGenerator
+from Spell_Checker.utils import preprocess
 
 
 class SpellChecker():
@@ -21,7 +21,7 @@ class SpellChecker():
 
         with open(dictionaryPath, 'r', encoding='utf-8') as json_file:
             dictionary = json.load(json_file)
-        self.evaluationModule = EvaluationMmodule(dictionary, model_config)
+        self.evaluationModule = EvaluationModule(dictionary, model_config)
         with open(insertionPath, 'r', encoding='utf-8') as json_file:
             insertions = json.load(json_file)
         with open(deletionPath, 'r', encoding='utf-8') as json_file:
