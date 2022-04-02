@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>නාමාවලිය</title>
+    <title>නාමාවලිය ගැන</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -32,30 +32,26 @@
 
         <main class="mdl-layout__content">
             <div style="margin-bottom: 8rem;" class="page-content">
-                <form style="padding-top: 1rem;" action="{{ url_for('UI_BP.spellcorrect') }}" method="post">
-                    <div class="row justify-content-around">
-                        <input class="form-control" style="width: 70%;" placeholder="නම මෙහි ලියන්න" type="text"
-                            name="text">
-                        <input
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            style="width: 20%;" value="නිවැරදි කරන්න" type="submit">
-                    </div>
 
-                </form>
+                <div class="p-5">
+                    <h5>නාමාවලිය සැකසුවේ</h5>
 
                 <div class="p-3">
-                    <ul class="list-group list-group-flush">
-                        {% for o in option_list %}
-                        {% if error_name_accuracy > o[0] %}
-                        <li class="list-group-item list-group-item-warning">{{ o[1] }}</li>
-                        {% else %}
-                        <li class="list-group-item list-group-item-info">{{ o[1] }}</li>
-                        {% endif %}
-                        {% endfor %}
+                    <ul class="list-group">
+                        <li class="list-group-item">හාෂණ ඇලිකේවෙල</li>
+                        <li class="list-group-item">යසිත් උඩගෙදර</li>
                     </ul>
                 </div>
-            </div>
 
+                <h5>සුපරීක්ෂණය කළේ</h5>
+
+                <div class="p-3">
+                    <ul class="list-group">
+                        <li class="list-group-item">ආචාර්‍ය උදයසංකර් ත්‍යායසිවම්</li>
+                    </ul>
+                </div>
+                </div>
+            </div>
             <footer style="position: fixed; height:8rem; width: 100%; bottom: 0;" class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
                     <div class="mdl-logo">නාමාවලිය</div>

@@ -1,8 +1,10 @@
+from distutils.log import error
 from flask import Blueprint, request, render_template
 import os
 
 from Spell_Checker.CharRNN import CharRNN
 from Spell_Checker.spellchecker import SpellChecker
+from Spell_Checker.utils import tokenize_full
 
 UI_BP = Blueprint('UI_BP', __name__)
 
@@ -10,6 +12,10 @@ UI_BP = Blueprint('UI_BP', __name__)
 @UI_BP.route('/', methods=['GET', 'POST'])
 def index():
     return render_template('index.html')
+
+@UI_BP.route('/about', methods=['GET'])
+def about():
+    return render_template('about.html')
 
 
 @UI_BP.route('/spellcorrect/', methods=('GET', 'POST'))
@@ -31,7 +37,8 @@ def spellcorrect():
     if request.method == 'POST':
         text = request.form['text']
         suggestions = spellChecker.correctSpelling(text)
-        print(suggestions)
-        return render_template('index.html', option_list=suggestions)
+        errorNameAccuracy = spellChecker.evaluationModule.model.getNameAccuracyLog(tokenize_full(text))
+        print(errorNameAccuracy)
+        return render_template('index.html', option_list=suggestions, error_name_accuracy=errorNameAccuracy)
 
-    return render_template('index.html', option_list=[])
+    return render_template('index.html', option_list=[], error_name_accuracy=0)

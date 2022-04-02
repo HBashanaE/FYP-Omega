@@ -33,9 +33,8 @@ class SpellChecker():
 
     def correctSpelling(self, errorName):
         errorName = preprocess(errorName)
-        suggestions = self.suggestionGenerator.generateSuggestions(
+        top10Suggestions = self.suggestionGenerator.generateSuggestions(
             errorName)
-        top10Suggestions = suggestions
         rankedSuggestions = self.evaluationModule.rankNames(
             top10Suggestions)
         return rankedSuggestions

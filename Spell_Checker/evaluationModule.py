@@ -8,10 +8,10 @@ class EvaluationModule():
         self.dictionary = defaultdict(int, dictionary)
         if(model_config['path'] == None):
             raise ValueError('Define a model path')
-        if(model_config['type'] == 'Stat'):
-            self.model = StatisticalLanguageModel(model_config['path'])
-        else:
+        if(model_config['type'] == 'Neural'):
             self.model = NeuralLanguageModel(model_config['path'])
+        else:
+            self.model = StatisticalLanguageModel(model_config['path'])
         
 
     def isNameAccurate(self, name) -> bool:
