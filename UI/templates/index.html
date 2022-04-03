@@ -22,7 +22,8 @@
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title">
-                    <div>නාමාවලිය - සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය</div>
+                    <img src="{{url_for('static', filename='namawaliya.logo.svg')}}" alt="" height="35rem">
+                    <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/"> සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය</a>
                 </span>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
@@ -31,36 +32,44 @@
         </header>
 
         <main class="mdl-layout__content">
-            <div style="margin-bottom: 8rem;" class="page-content">
+            <div style="margin-bottom: 8rem; padding: 1rem;" class="page-content container-md">
                 <form style="padding-top: 1rem;" action="{{ url_for('UI_BP.spellcorrect') }}" method="post">
-                    <div class="row justify-content-around">
-                        <input class="form-control" style="width: 70%;" placeholder="නම මෙහි ලියන්න" type="text"
+                    <div class="d-flex-column justify-content-center" style="display: flex;
+                    flex-flow: column;
+                    align-items: center;">
+                        <input class="form-control"  placeholder="නම මෙහි ලියන්න" type="text"
                             name="text">
                         <input
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                            style="width: 20%;" value="නිවැරදි කරන්න" type="submit">
+                            style="margin: 1rem;"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="නිවැරදි කරන්න" type="submit">
                     </div>
 
                 </form>
 
+
+
                 <div class="p-3">
-                    <ul class="list-group list-group-flush">
-                        {% for o in option_list %}
-                        {% if error_name_accuracy > o[0] %}
-                        <li class="list-group-item list-group-item-warning">{{ o[1] }}</li>
+                    <div style="display: flex;
+                    justify-content: center;">
+                        {% for item in suggestions %}
+                      
+                        {% if error_name_accuracy > item[0] %}
+                        <p style="margin: 1rem; padding: 0.5rem; color: #DC3545; border-radius: 10px;">{{ item[1] }}</p>
                         {% else %}
-                        <li class="list-group-item list-group-item-info">{{ o[1] }}</li>
+                        <p style="margin: 1rem; padding: 0.5rem; color: #198754; border-radius: 10px;">{{ item[1] }}</p>
                         {% endif %}
+                        
+        
                         {% endfor %}
-                    </ul>
+                    </div>
+                   
                 </div>
             </div>
 
             <footer style="position: fixed; height:8rem; width: 100%; bottom: 0;" class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
-                    <div class="mdl-logo">නාමාවලිය</div>
+                    <a href="/"><div class="mdl-logo">නාමාවලිය</div></a>
                     <ul class="mdl-mini-footer__link-list">
-                        <li><a href="/">නිවස</a></li>
                         <li><a href="/about">නාමාවලිය ගැන</a></li>
                     </ul>
                 </div>

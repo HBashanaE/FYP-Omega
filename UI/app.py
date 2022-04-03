@@ -39,6 +39,6 @@ def spellcorrect():
         suggestions = spellChecker.correctSpelling(text)
         errorNameAccuracy = spellChecker.evaluationModule.model.getNameAccuracyLog(tokenize_full(text))
         print(errorNameAccuracy)
-        return render_template('index.html', option_list=suggestions, error_name_accuracy=errorNameAccuracy)
+        return render_template('index.html', suggestions=suggestions[:5], error_name_accuracy=errorNameAccuracy)
 
-    return render_template('index.html', option_list=[], error_name_accuracy=0)
+    return render_template('index.html', suggestions=[], error_name_accuracy=0)
