@@ -36,9 +36,14 @@ def spellcorrect():
                               ngramModelPath, insertionPath, deletionPath, substitutionPath)
     if request.method == 'POST':
         text = request.form['text']
+        for char in text:
+            if(ord(char) in range(3458, 3572)):
+                break
+        else:
+            return render_template('index.html', suggestions=[], error_name_accuracy=0, input_error="true")
         suggestions = spellChecker.correctSpelling(text)
         errorNameAccuracy = spellChecker.evaluationModule.model.getNameAccuracyLog(tokenize_full(text))
         print(errorNameAccuracy)
-        return render_template('index.html', suggestions=suggestions[:5], error_name_accuracy=errorNameAccuracy)
+        return render_template('index.html', suggestions=suggestions[:5], error_name_accuracy=errorNameAccuracy, input_error="false")
 
-    return render_template('index.html', suggestions=[], error_name_accuracy=0)
+    return render_template('index.html', suggestions=[], error_name_accuracy=0, input_error="false")

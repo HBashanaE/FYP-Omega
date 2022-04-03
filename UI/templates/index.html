@@ -22,22 +22,34 @@
             <div class="mdl-layout__header-row">
                 <!-- Title -->
                 <span class="mdl-layout-title">
-                    <img src="{{url_for('static', filename='namawaliya.logo.svg')}}" alt="" height="35rem">
-                    <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/"> සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය</a>
+                    <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/">
+                        <img src="{{url_for('static', filename='namawaliya.logo.svg')}}" alt="" height="35rem">
+                        සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය
+                    </a>
                 </span>
+                <nav class="mdl-navigation mdl-layout--large-screen-only">
+                    <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
+                  </nav>
                 <!-- Add spacer, to align navigation to the right -->
                 <div class="mdl-layout-spacer"></div>
 
             </div>
         </header>
+        <div class="mdl-layout__drawer">
+            <nav class="mdl-navigation">
+                <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
+            </nav>
+          </div>
 
         <main class="mdl-layout__content">
+            
+
             <div style="margin-bottom: 8rem; padding: 1rem;" class="page-content container-md">
                 <form style="padding-top: 1rem;" action="{{ url_for('UI_BP.spellcorrect') }}" method="post">
                     <div class="d-flex-column justify-content-center" style="display: flex;
                     flex-flow: column;
                     align-items: center;">
-                        <input class="form-control"  placeholder="නම මෙහි ලියන්න" type="text"
+                        <input class="form-control" style="width: 50%;"  placeholder="නම මෙහි ලියන්න" type="text"
                             name="text">
                         <input
                             style="margin: 1rem;"
@@ -76,6 +88,33 @@
             </footer>
         </main>
     </div>
+    <dialog class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Please enter valid input</h4>
+        <div class="mdl-dialog__content">
+          <p>
+            Your input may be empty or does not include Sinhala characters.
+          </p>
+        </div>
+        <div class="mdl-dialog__actions">
+          <button type="button" class="mdl-button close">OK</button>
+        </div>
+      </dialog>
+      
+    <script>
+        var inputError = '{{ input_error }}';
+        var dialog = document.querySelector('dialog');
+        var showDialogButton = document.querySelector('#show-dialog');
+        if (! dialog.showModal) {
+          dialogPolyfill.registerDialog(dialog);
+        }
+
+        if(inputError == "true"){
+            dialog.showModal();
+        }
+        dialog.querySelector('.close').addEventListener('click', function() {
+          dialog.close();
+        });
+      </script>
 
 </body>
 

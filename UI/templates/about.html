@@ -18,51 +18,83 @@
 <body>
 
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
-                <!-- Title -->
-                <span class="mdl-layout-title">
-                    <img src="{{url_for('static', filename='namawaliya.logo.svg')}}" alt="" height="35rem">
-                    <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/"> සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය</a>
-                </span>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
+        <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+            <header class="mdl-layout__header">
+                <div class="mdl-layout__header-row">
+                    <!-- Title -->
+                    <span class="mdl-layout-title">
+                        <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/">
+                            <img src="{{url_for('static', filename='namawaliya.logo.svg')}}" alt="" height="35rem">
+                            සිංහල නාම අක්ෂර වින්‍යාස නිවැරදි කරනය
+                        </a>
+                    </span>
+                    <nav class="mdl-navigation mdl-layout--large-screen-only">
+                        <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
+                    </nav>
+                    <!-- Add spacer, to align navigation to the right -->
+                    <div class="mdl-layout-spacer"></div>
 
+                </div>
+            </header>
+            <div class="mdl-layout__drawer">
+                <nav class="mdl-navigation">
+                    <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
+                </nav>
             </div>
-        </header>
 
-        <main class="mdl-layout__content">
-            <div style="margin-bottom: 8rem;" class="page-content">
+            <main class="mdl-layout__content">
+                <div style="margin-bottom: 8rem;" class="page-content">
 
-                <div class="p-5">
-                    <h5>"නාමාවලිය" සැකසුවේ - Developed by</h5>
+                    <div class="px-5 py-2">
+                        <h5>සැකසුවේ</h5>
 
-                <div class="p-3">
-                    <ul class="list-group">
-                        <li>භාෂණ ඇලිකේවෙල Bashana Elikewela</li>
-                        <li>යසිත් උඩගෙදර Yasith Udagedara</li>
-                    </ul>
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li>භාෂණ ඇලිකේවෙල</li>
+                                <li>යසිත් උඩගෙදර</li>
+                            </ul>
+                        </div>
+
+                        <h5>සුපරීක්ෂණය කළේ</h5>
+
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li>ආචාර්‍ය උදයසංකර් ත්‍යායසිවම්</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="px-5 py-2">
+                        <h5>Developed by</h5>
+
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li>Bashana Elikewela</li>
+                                <li>Yasith Udagedara</li>
+                            </ul>
+                        </div>
+
+                        <h5>Supervised by</h5>
+
+                        <div class="p-3">
+                            <ul class="list-group">
+                                <li>Dr. Uthayasanker Thyayasivam</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
-                <h5>සුපරීක්ෂණය කළේ - Supervised by</h5>
-
-                <div class="p-3">
-                    <ul class="list-group">
-                        <li>ආචාර්‍ය උදයසංකර් ත්‍යායසිවම් Dr. Uthayasanker Thyayasivam</li>
-                    </ul>
-                </div>
-                </div>
-            </div>
-            <footer style="position: fixed; height:8rem; width: 100%; bottom: 0;" class="mdl-mini-footer">
-                <div class="mdl-mini-footer__left-section">
-                    <a href="/"><div class="mdl-logo">නාමාවලිය</div></a>
-                    <ul class="mdl-mini-footer__link-list">
-                        <li><a href="/about">නාමාවලිය ගැන</a></li>
-                    </ul>
-                </div>
-            </footer>
-        </main>
-    </div>
+                <footer style="position: fixed; height:8rem; width: 100%; bottom: 0;" class="mdl-mini-footer">
+                    <div class="mdl-mini-footer__left-section">
+                        <a href="/">
+                            <div class="mdl-logo">නාමාවලිය</div>
+                        </a>
+                        <ul class="mdl-mini-footer__link-list">
+                            <li><a href="/about">නාමාවලිය ගැන</a></li>
+                        </ul>
+                    </div>
+                </footer>
+            </main>
+        </div>
 
 </body>
 
