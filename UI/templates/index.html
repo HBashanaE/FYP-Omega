@@ -19,7 +19,7 @@
 
     <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <header class="mdl-layout__header">
-            <div class="mdl-layout__header-row">
+            <div class="mdl-layout__header-row" style="justify-content: space-between;">
                 <!-- Title -->
                 <span class="mdl-layout-title">
                     <a style="text-decoration: none; color: white; margin-left: 0.5rem;" href="/">
@@ -29,31 +29,23 @@
                 </span>
                 <nav class="mdl-navigation mdl-layout--large-screen-only">
                     <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
-                  </nav>
-                <!-- Add spacer, to align navigation to the right -->
-                <div class="mdl-layout-spacer"></div>
-
+                </nav>
             </div>
         </header>
-        <div class="mdl-layout__drawer">
-            <nav class="mdl-navigation">
-                <a class="mdl-navigation__link" href="/about">නාමාවලිය ගැන</a>
-            </nav>
-          </div>
 
         <main class="mdl-layout__content">
-            
+
 
             <div style="margin-bottom: 8rem; padding: 1rem;" class="page-content container-md">
                 <form style="padding-top: 1rem;" action="{{ url_for('UI_BP.spellcorrect') }}" method="post">
                     <div class="d-flex-column justify-content-center" style="display: flex;
                     flex-flow: column;
                     align-items: center;">
-                        <input class="form-control" style="width: 50%;"  placeholder="නම මෙහි ලියන්න" type="text"
+                        <input class="form-control" style="width: 50%;" placeholder="නම මෙහි ලියන්න" type="text"
                             name="text">
-                        <input
-                            style="margin: 1rem;"
-                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" value="නිවැරදි කරන්න" type="submit">
+                        <input style="margin: 1rem;"
+                            class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                            value="නිවැරදි කරන්න" type="submit">
                     </div>
 
                 </form>
@@ -64,23 +56,25 @@
                     <div style="display: flex;
                     justify-content: center;">
                         {% for item in suggestions %}
-                      
+
                         {% if error_name_accuracy > item[0] %}
                         <p style="margin: 1rem; padding: 0.5rem; color: #DC3545; border-radius: 10px;">{{ item[1] }}</p>
                         {% else %}
                         <p style="margin: 1rem; padding: 0.5rem; color: #198754; border-radius: 10px;">{{ item[1] }}</p>
                         {% endif %}
-                        
-        
+
+
                         {% endfor %}
                     </div>
-                   
+
                 </div>
             </div>
 
             <footer style="position: fixed; height:8rem; width: 100%; bottom: 0;" class="mdl-mini-footer">
                 <div class="mdl-mini-footer__left-section">
-                    <a href="/"><div class="mdl-logo">නාමාවලිය</div></a>
+                    <a href="/">
+                        <div class="mdl-logo">නාමාවලිය</div>
+                    </a>
                     <ul class="mdl-mini-footer__link-list">
                         <li><a href="/about">නාමාවලිය ගැන</a></li>
                     </ul>
@@ -91,30 +85,30 @@
     <dialog class="mdl-dialog">
         <h4 class="mdl-dialog__title">කරුණාකර වලංගු ආදානයක් ඇතුල් කරන්න</h4>
         <div class="mdl-dialog__content">
-          <p>
-            ඔබගේ ආදානය හිස් හෝ සිංහල අක්ෂර වලින් තොරය.
-          </p>
+            <p>
+                ඔබගේ ආදානය හිස් හෝ සිංහල අක්ෂර වලින් තොරය.
+            </p>
         </div>
         <div class="mdl-dialog__actions">
-          <button type="button" class="mdl-button close">හරි</button>
+            <button type="button" class="mdl-button close">හරි</button>
         </div>
-      </dialog>
-      
+    </dialog>
+
     <script>
         var inputError = '{{ input_error }}';
         var dialog = document.querySelector('dialog');
         var showDialogButton = document.querySelector('#show-dialog');
-        if (! dialog.showModal) {
-          dialogPolyfill.registerDialog(dialog);
+        if (!dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
         }
 
-        if(inputError == "true"){
+        if (inputError == "true") {
             dialog.showModal();
         }
-        dialog.querySelector('.close').addEventListener('click', function() {
-          dialog.close();
+        dialog.querySelector('.close').addEventListener('click', function () {
+            dialog.close();
         });
-      </script>
+    </script>
 
 </body>
 
