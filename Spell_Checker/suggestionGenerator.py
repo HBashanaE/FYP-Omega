@@ -43,9 +43,10 @@ class SuggestionGenerator():
                     suggestions.append((suggestion, correction[1]))
 
         max_score = max(suggestions, key=itemgetter(1))[1]
+        icm_suggestions = [sug[0] for sug in suggestions]
 
         for x, y in self.dictionary.items():
-            if 0 < Levenshtein.distance(x, error) < 3:
+            if (0 < Levenshtein.distance(x, error) < 3) and (x not in icm_suggestions):
                 suggestions.append((tokenize_full(x), max_score*y))
 
         return sorted(suggestions, key=lambda tup: tup[1], reverse=True)
