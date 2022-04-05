@@ -36,18 +36,18 @@ class SuggestionGenerator():
                 for correction in self.deletions[letter]:
                     suggestion = tokenizedError[:idx] + \
                         [correction[0]] + tokenizedError[idx:]
-                        if suggestion not in sug_list:
-                            suggestions.append((suggestion, correction[1]))
-                            sug_list.append(suggestion)
+                    if suggestion not in sug_list:
+                        suggestions.append((suggestion, correction[1]))
+                        sug_list.append(suggestion)
 
         for idx, letter in enumerate(tokenizedError):
             if letter in self.substitutions:
                 for correction in self.substitutions[letter]:
                     suggestion = tokenizedError[:idx] + \
                         [correction[0]] + tokenizedError[idx+1:]
-                        if suggestion not in sug_list:
-                            suggestions.append((suggestion, correction[1]))
-                            sug_list.append(suggestion)
+                    if suggestion not in sug_list:
+                        suggestions.append((suggestion, correction[1]))
+                        sug_list.append(suggestion)
 
         max_score = max(suggestions, key=itemgetter(1))[1]
 
